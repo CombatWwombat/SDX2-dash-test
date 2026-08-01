@@ -42,34 +42,33 @@ function init() {
         scene.add(mesh);
       });
 
-      // ---- BELT ----
-    function makeTorus(major, minor, color="gray") {
-      const geom = new THREE.TorusGeometry(
-        major,      // distance from center
-        minor,      // tube radius
-        32,         // tube segments
-        128         // radial segments
-      );
-    
-      const mat = new THREE.MeshBasicMaterial({
-        color,
-        wireframe: false
+      // ---- TORUS BELT ----
+      function makeTorus(major, minor, color="gray") {
+        const geom = new THREE.TorusGeometry(
+          major,      // distance from center
+          minor,      // tube radius
+          32,         // tube segments
+          128         // radial segments
+        );
+
+        const mat = new THREE.MeshBasicMaterial({
+          color,
+          wireframe: false
+        });
+
+        const torus = new THREE.Mesh(geom, mat);
+
+        // Lay it flat like a planetary belt
+        torus.rotation.x = Math.PI / 2;
+
+        return torus;
+      }
+
+      // Create belt from JSON
+      data.belt.forEach(b => {
+        const torus = makeTorus(b.major, b.minor);
+        scene.add(torus);
       });
-    
-      const torus = new THREE.Mesh(geom, mat);
-    
-      torus.rotation.x = Math.PI / 2; // flatten into XY plane
-    
-      return torus;
-    }
-    
-    // actually create the belt
-    data.belt.forEach(b => {
-      const torus = makeTorus(b.major, b.minor);
-      scene.add(torus);
-    });
-
-
 
     })
     .catch(err => console.error("JSON load error:", err));
