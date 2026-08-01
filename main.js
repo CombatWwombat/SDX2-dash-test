@@ -37,15 +37,7 @@ window.onload = function() {
       label.position.set(p.x, p.y + p.radius * 1.2, p.z);
       scene.add(label);
     });
-
-    const testPlanet = new THREE.Mesh(
-      new THREE.SphereGeometry(500000, 32, 32),
-      new THREE.MeshBasicMaterial({ color: "red" })
-    );
-    testPlanet.position.set(0, 0, 0);
-    scene.add(testPlanet);
-
-  
+    
     // Belt
     universe.belts.forEach(b => {
       const geom = new THREE.TorusGeometry(b.major, b.minor, 16, 64);
