@@ -43,8 +43,7 @@ function init() {
       });
 
       // ---- BELT ----
-      function makeTorus(major, minor, color="gray") {
-
+    function makeTorus(major, minor, color="gray") {
       const geom = new THREE.TorusGeometry(
         major,      // distance from center
         minor,      // tube radius
@@ -63,6 +62,13 @@ function init() {
     
       return torus;
     }
+    
+    // actually create the belt
+    data.belt.forEach(b => {
+      const torus = makeTorus(b.major, b.minor);
+      scene.add(torus);
+    });
+
 
 
     })
