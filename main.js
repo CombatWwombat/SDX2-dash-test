@@ -43,16 +43,27 @@ function init() {
       });
 
       // ---- BELT ----
-      data.belt.forEach(b => {
-        const beltGeom = new THREE.RingGeometry(b.major, b.minor, 128);
-        const beltMat = new THREE.MeshBasicMaterial({
-          color: "gray",
-          side: THREE.DoubleSide
-        });
-        const beltMesh = new THREE.Mesh(beltGeom, beltMat);
-        beltMesh.rotation.x = Math.PI / 2;
-        scene.add(beltMesh);
+      function makeTorus(major, minor, color="gray") {
+
+      const geom = new THREE.TorusGeometry(
+        major,      // distance from center
+        minor,      // tube radius
+        32,         // tube segments
+        128         // radial segments
+      );
+    
+      const mat = new THREE.MeshBasicMaterial({
+        color,
+        wireframe: false
       });
+    
+      const torus = new THREE.Mesh(geom, mat);
+    
+      torus.rotation.x = Math.PI / 2; // flatten into XY plane
+    
+      return torus;
+    }
+
 
     })
     .catch(err => console.error("JSON load error:", err));
