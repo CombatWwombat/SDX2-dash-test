@@ -42,18 +42,18 @@ function init() {
       console.log("data JSON:", data);
 
       // ---- PLANETS ----
-      data.zones.forEach(p => {
-        const geo = new THREE.SphereGeometry(p.radius, 32, 32);
+      data.zones.forEach(z => {
+        const geo = new THREE.SphereGeometry(z.radius, 32, 32);
         
         const mat = new THREE.MeshBasicMaterial({ 
-          color: p.color, 
+          color: z.color, 
           transparent: true, 
           opacity: 0.5,
           depthTest: false
         });
         
         const mesh = new THREE.Mesh(geo, mat);
-        mesh.position.set(p.x, p.y, p.z);
+        mesh.position.set(z.x, z.y, z.z);
         scene.add(mesh);
       });
 
