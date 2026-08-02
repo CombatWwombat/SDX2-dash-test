@@ -14,7 +14,7 @@
 
   "belt": [
     {"name": "DX6 Belt",
-      "major": 8500000,
+      "major": 8500000, 
       "minor": 500000}
   ]
 }
