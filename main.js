@@ -62,26 +62,27 @@ function init() {
     const geom = new THREE.TorusGeometry(
       major,
       minor,
-      32,
-      128
+      64,     // smoother tube
+      256     // smoother ring
     );
   
     const mat = new THREE.MeshStandardMaterial({
       color,
       transparent: true,
-      opacity: 0.5
+      opacity: 0.35,
+      side: THREE.DoubleSide,
+      depthWrite: false,        // prevents self‑intersection flicker
+      depthTest: true           // MUST stay true with log depth
     });
   
     const torus = new THREE.Mesh(geom, mat);
   
-    // ⭐ Option 2 — force stable rendering order
-    mat.depthWrite = false;
-    mat.depthTest = false;
-    torus.renderOrder = 999;
-  
+    torus.renderOrder = 999;    // draw after planets → stable transparency
     torus.rotation.x = Math.PI / 2;
+  
     return torus;
   }
+
 
 
   // GPS Plot Button
