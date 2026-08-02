@@ -13,7 +13,7 @@
   ],
 
   "planets": [
-    { "name": "DX1 Sol",     "x": 0,           "y": 0,          "z": 0,           "color": "white",  "radius": 10000 }
+    { "name": "DX1 Sol",     "x": 0,           "y": 0,          "z": 0,           "color": "white",  "radius": 100000 }
   ],
 
   "belt": [
