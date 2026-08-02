@@ -26,12 +26,12 @@ function init() {
   controls.target.set(0, 0, 0);
   controls.update();
 
-  // Load universe.json
-  fetch("universe.json")
+  // Load data.json
+  fetch("data.json")
     .then(r => r.json())
     .then(data => {
 
-      console.log("Universe JSON:", data);
+      console.log("data JSON:", data);
 
       // ---- PLANETS ----
       data.planets.forEach(p => {
