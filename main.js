@@ -107,7 +107,7 @@ function init() {
       scene.add(earth);
     });
 
-  // EARTH
+  // MARS
   fetch("data/mars.json")
     .then(r => r.json())
     .then(m => {
