@@ -44,14 +44,14 @@ function init() {
       // ---- PLANETS ----
       data.planets.forEach(p => {
         const geo = new THREE.SphereGeometry(p.radius, 32, 32);
-
-        const mat = new THREE.MeshBasicMaterial({
-          color: p.color,
-          transparent: true,
+        
+        const mat = new THREE.MeshBasicMaterial({ 
+          color: p.color, 
+          transparent: true, 
           opacity: 0.5,
-          depthWrite: false
+          depthTest: false
         });
-
+        
         const mesh = new THREE.Mesh(geo, mat);
         mesh.position.set(p.x, p.y, p.z);
         scene.add(mesh);
@@ -68,7 +68,7 @@ function init() {
 
         const mat = new THREE.MeshBasicMaterial({
           color,
-          wireframe: false,
+          wireframe: false
           transparent: true,
           opacity: 0.5
         });
@@ -78,13 +78,13 @@ function init() {
         return torus;
       }
 
-      // ⭐ ADD THE BELT
       data.belt.forEach(b => {
         const torus = makeTorus(b.major, b.minor);
         scene.add(torus);
       });
 
-    }); // ⭐ THIS closes the .then(data => { ... })
+    })
+    .catch(err => console.error("JSON load error:", err));
 
   // GPS Plot Button
   document.getElementById("plotBtn").onclick = () => {
@@ -135,4 +135,3 @@ function animate() {
 }
 
 window.onload = init;
-
