@@ -30,9 +30,9 @@ function init() {
   controls.update();
 
   // LIGHT
-  const light = new THREE.DirectionalLight(0xffffff, 2);
-  light.position.set(1, 1, 1);
-  scene.add(light);
+  const sunLight = new THREE.PointLight(0xffffff, 5, 0); // infinite range
+  sunLight.position.set(0, 0, 0);
+  scene.add(sunLight);
 
   // Load data.json
   fetch("data/zones.json")
