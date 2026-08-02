@@ -26,13 +26,13 @@ function makeLabel(text) {
   const material = new THREE.SpriteMaterial({
     map: texture,
     transparent: true,
-    depthTest: false,   // prevents black box
-    depthWrite: false   // prevents depth pollution
+    depthTest: false,
+    depthWrite: false
   });
 
   const sprite = new THREE.Sprite(material);
 
-  // fixed size
+  // base world size (kept exactly as you wanted)
   const size = 5000000;
   sprite.scale.set(size, size * 0.5, 1);
 
@@ -216,20 +216,24 @@ function animate() {
   const camQuat = camera.quaternion;
 
   labels.forEach(label => {
-    // Always face camera
+    // Always face the camera
     label.quaternion.copy(camQuat);
 
-    // Keep same visual size regardless of zoom
+    // ---- CONSTANT SCREEN SIZE ----
+    const desiredSize = 200; // pixels on screen
+
     const dist = camera.position.distanceTo(label.position);
+    const vFOV = THREE.MathUtils.degToRad(camera.fov);
+    const height = 2 * Math.tan(vFOV / 2) * dist;
 
-    const base = 5000000;   // your original size
-    const screenScale = dist * 0.0001;  // adjust multiplier to taste
+    const worldPixelRatio = height / window.innerHeight;
+    const worldSize = desiredSize * worldPixelRatio;
 
-    label.scale.set(base * screenScale, (base * 0.5) * screenScale, 1);
+    label.scale.set(worldSize, worldSize * 0.5, 1);
   });
 
   renderer.render(scene, camera);
 }
 
-
 window.onload = init;
+
