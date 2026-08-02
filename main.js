@@ -1,6 +1,41 @@
 let scene, camera, renderer, controls;
 let marker = null;
 
+// ---- LABEL MAKER ----
+function makeLabel(text, radius) {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  ctx.font = "64px Arial";
+  const padding = 40;
+  const textWidth = ctx.measureText(text).width;
+
+  canvas.width = textWidth + padding;
+  canvas.height = 128;
+
+  ctx.font = "64px Arial";
+  ctx.fillStyle = "white";
+  ctx.textBaseline = "middle";
+  ctx.fillText(text, padding / 2, canvas.height / 2);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+
+  const material = new THREE.SpriteMaterial({
+    map: texture,
+    transparent: true
+  });
+
+  const sprite = new THREE.Sprite(material);
+
+  // scale relative to zone radius
+  const scale = radius * 0.6;
+  sprite.scale.set(scale, scale * 0.4, 1);
+
+  return sprite;
+}
+
 function init() {
 
   // Scene
@@ -29,8 +64,8 @@ function init() {
   controls.target.set(0, 0, 0);
   controls.update();
 
-  // LIGHT
-  const sunLight = new THREE.PointLight(0xffffff, 5, 0); // infinite range
+  // LIGHT (Sun)
+  const sunLight = new THREE.PointLight(0xffffff, 5, 0);
   sunLight.position.set(0, 0, 0);
   scene.add(sunLight);
 
@@ -54,6 +89,15 @@ function init() {
         const mesh = new THREE.Mesh(geo, mat);
         mesh.position.set(z.x, z.y, z.z);
         scene.add(mesh);
+
+        // ---- LABEL ----
+        const label = makeLabel(z.name, z.radius);
+        label.position.set(
+          z.x,
+          z.y + z.radius + (z.radius * 0.3),
+          z.z
+        );
+        scene.add(label);
       });
 
       // ---- TORUS BELT ----
