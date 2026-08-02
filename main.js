@@ -220,7 +220,7 @@ function animate() {
     label.quaternion.copy(camQuat);
 
     // ---- CONSTANT SCREEN SIZE ----
-    const desiredSize = 200; // pixels on screen
+    const desiredSize = 100; // pixels on screen
 
     const dist = camera.position.distanceTo(label.position);
     const vFOV = THREE.MathUtils.degToRad(camera.fov);
