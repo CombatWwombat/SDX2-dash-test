@@ -41,7 +41,7 @@ function init() {
 
       console.log("data JSON:", data);
 
-      // ---- PLANETS ----
+      // ---- ZONES ----
       data.zones.forEach(z => {
         const geo = new THREE.SphereGeometry(z.radius, 32, 32);
         
@@ -54,6 +54,19 @@ function init() {
         
         const mesh = new THREE.Mesh(geo, mat);
         mesh.position.set(z.x, z.y, z.z);
+        scene.add(mesh);
+      });
+
+      // ---- PLANETS ----
+      data.planets.forEach(p => {
+        const geo = new THREE.SphereGeometry(p.radius, 32, 32);
+        
+        const mat = new THREE.MeshBasicMaterial({ 
+          color: p.color
+        });
+        
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.position.set(p.x, p.y, p.z);
         scene.add(mesh);
       });
 
