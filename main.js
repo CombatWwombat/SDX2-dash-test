@@ -29,12 +29,6 @@ function init() {
   controls.target.set(0, 0, 0);
   controls.update();
 
-   // Light source
-    const light = new THREE.PointLight(s.color, 5, 0); // infinite range
-      light.position.set(s.x, s.y, s.z);
-      scene.add(light);
-    });
-
   // Load data.json
   fetch("data/zones.json")
     .then(r => r.json())
@@ -85,7 +79,6 @@ function init() {
 
     })
     .catch(err => console.error("JSON load error:", err));
-
   // SOL
   fetch("data/sol.json")
     .then(r => r.json())
@@ -95,15 +88,19 @@ function init() {
       const mat = new THREE.MeshStandardMaterial({
         color: s.color,
         emissive: s.color,
-        emissiveIntensity: 5,   // increase glow strength
+        emissiveIntensity: 5
       });
   
       const sol = new THREE.Mesh(geo, mat);
       sol.position.set(s.x, s.y, s.z);
       scene.add(sol);
+  
+      // REAL LIGHT SOURCE
+      const light = new THREE.PointLight(s.color, 5, 0);
+      light.position.set(s.x, s.y, s.z);
+      scene.add(light);
     });
 
-  
 
   // GPS Plot Button
   document.getElementById("plotBtn").onclick = () => {
