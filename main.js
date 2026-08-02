@@ -33,7 +33,7 @@ function makeLabel(text) {
   const plane = new THREE.Mesh(geometry, material);
 
   // fixed world size
-  const size = 2e6;
+  const size = 30000;
   plane.scale.set(size, size * 0.5, 1);
 
   return plane;
