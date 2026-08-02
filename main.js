@@ -44,14 +44,14 @@ function init() {
       // ---- PLANETS ----
       data.planets.forEach(p => {
         const geo = new THREE.SphereGeometry(p.radius, 32, 32);
-        
-        const mat = new THREE.MeshBasicMaterial({ 
-          color: p.color, 
-          transparent: true, 
+
+        const mat = new THREE.MeshBasicMaterial({
+          color: p.color,
+          transparent: true,
           opacity: 0.5,
           depthWrite: false
         });
-        
+
         const mesh = new THREE.Mesh(geo, mat);
         mesh.position.set(p.x, p.y, p.z);
         scene.add(mesh);
@@ -59,29 +59,32 @@ function init() {
 
       // ---- TORUS BELT ----
       function makeTorus(major, minor, color="gray") {
-      const geom = new THREE.TorusGeometry(
-        major,
-        minor,
-        32,
-        128
-      );
-    
-      const mat = new THREE.MeshBasicMaterial({
-        color,
-        wireframe: false,
-        transparent: true,
-        opacity: 0.5
-      });
-    
-      const torus = new THREE.Mesh(geom, mat);
-      torus.rotation.x = Math.PI / 2;
-      return torus;
-    }
+        const geom = new THREE.TorusGeometry(
+          major,
+          minor,
+          32,
+          128
+        );
 
-    data.belt.forEach(b => {
-      const torus = makeTorus(b.major, b.minor);
-      scene.add(torus);
-    });
+        const mat = new THREE.MeshBasicMaterial({
+          color,
+          wireframe: false,
+          transparent: true,
+          opacity: 0.5
+        });
+
+        const torus = new THREE.Mesh(geom, mat);
+        torus.rotation.x = Math.PI / 2;
+        return torus;
+      }
+
+      // ⭐ ADD THE BELT
+      data.belt.forEach(b => {
+        const torus = makeTorus(b.major, b.minor);
+        scene.add(torus);
+      });
+
+    }); // ⭐ THIS closes the .then(data => { ... })
 
   // GPS Plot Button
   document.getElementById("plotBtn").onclick = () => {
@@ -132,3 +135,4 @@ function animate() {
 }
 
 window.onload = init;
+
