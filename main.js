@@ -43,9 +43,9 @@ function init() {
         const geo = new THREE.SphereGeometry(p.radius, 32, 32);
         const mat = new THREE.MeshStandardMaterial({ color: p.color });
         const mesh = new THREE.Mesh(geo, mat);
-        mesh.position.set(p.x, p.y, p.z);
         mesh.castShadow = false;
         mesh.receiveShadow = false;
+        mesh.position.set(p.x, p.y, p.z);
         scene.add(mesh);
       });
 
