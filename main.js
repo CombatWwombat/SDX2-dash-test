@@ -47,7 +47,7 @@ function init() {
         const mat = new THREE.MeshBasicMaterial({ 
           color: z.color, 
           transparent: true, 
-          opacity: 0.5,
+          opacity: 0.3,
           depthTest: false
         });
               
@@ -69,7 +69,7 @@ function init() {
           color,
           wireframe: false,
           transparent: true,
-          opacity: 0.5
+          opacity: 0.3
         });
 
         const torus = new THREE.Mesh(geom, mat);
