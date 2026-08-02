@@ -25,14 +25,14 @@ function makeLabel(text) {
   const material = new THREE.SpriteMaterial({
     map: texture,
     transparent: true,
-    depthTest: false,   // <--- FIX
-    depthWrite: false   // <--- FIX
+    depthTest: false, 
+    depthWrite: false   
   });
 
   const sprite = new THREE.Sprite(material);
 
   // fixed size
-  const size = 150000;   // adjust as needed
+  const size = 1000;   // adjust as needed
   sprite.scale.set(size, size * 0.5, 1);
 
   return sprite;
