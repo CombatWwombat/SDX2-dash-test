@@ -25,9 +25,12 @@ function makeLabel(text) {
   const material = new THREE.MeshBasicMaterial({
     map: texture,
     transparent: true,
-    alphaTest: 0.01,   // kills halos completely
-    side: THREE.DoubleSide
+    alphaTest: 0.01,
+    side: THREE.DoubleSide,
+    depthTest: false,     // <--- THIS FIXES THE BLACK BOX
+    depthWrite: false     // <--- prevents writing garbage into depth buffer
   });
+
 
   const geometry = new THREE.PlaneGeometry(canvas.width, canvas.height);
   const plane = new THREE.Mesh(geometry, material);
