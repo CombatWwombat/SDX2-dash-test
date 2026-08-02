@@ -23,11 +23,19 @@ function init() {
   });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
-
+  
   // Controls
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.target.set(0, 0, 0);
   controls.update();
+  
+  // GLOBAL LIGHTS
+  const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+  scene.add(ambient);
+  
+  const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+  sunLight.position.set(1, 1, 1);
+  scene.add(sunLight);
 
   // Load data.json
   fetch("data/zones.json")
