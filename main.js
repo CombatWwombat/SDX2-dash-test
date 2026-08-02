@@ -33,7 +33,7 @@ function makeLabel(text) {
   const sprite = new THREE.Sprite(material);
 
   // fixed size
-  const size = 150000;
+  const size = 1000000;
   sprite.scale.set(size, size * 0.5, 1);
 
   return sprite;
