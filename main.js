@@ -29,10 +29,11 @@ function init() {
   controls.target.set(0, 0, 0);
   controls.update();
 
-  // LIGHT
-  const light = new THREE.DirectionalLight(0xffffff, 2);
-  light.position.set(1, 1, 1);
-  scene.add(light);
+   // Light source
+    const light = new THREE.PointLight(s.color, 5, 0); // infinite range
+      light.position.set(s.x, s.y, s.z);
+      scene.add(light);
+    });
 
   // Load data.json
   fetch("data/zones.json")
@@ -89,12 +90,19 @@ function init() {
   fetch("data/sol.json")
     .then(r => r.json())
     .then(s => {
-      const geo = new THREE.SphereGeometry(s.radius, 32, 32);
-      const mat = new THREE.MeshBasicMaterial({ color: s.color });
+      const geo = new THREE.SphereGeometry(s.radius, 64, 64);
+  
+      const mat = new THREE.MeshStandardMaterial({
+        color: s.color,
+        emissive: s.color,
+        emissiveIntensity: 5,   // increase glow strength
+      });
+  
       const sol = new THREE.Mesh(geo, mat);
       sol.position.set(s.x, s.y, s.z);
       scene.add(sol);
     });
+
   
 
   // GPS Plot Button
