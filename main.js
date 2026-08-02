@@ -36,8 +36,7 @@ function init() {
       // ---- PLANETS ----
       data.planets.forEach(p => {
         const geom = new THREE.SphereGeometry(p.radius, 32, 32);
-        const mat = new THREE.MeshBasicMaterial({ color: p.color });
-        const mesh = new THREE.Mesh(geom, mat);
+        const mesh = new THREE.Mesh(geom, color="gray");
         mesh.position.set(p.x, p.y, p.z);
         scene.add(mesh);
       });
