@@ -1,6 +1,32 @@
 let scene, camera, renderer, controls;
 let marker = null;
 
+function makeLabel(text) {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  ctx.font = "48px Arial";
+  const padding = 40;
+  const textWidth = ctx.measureText(text).width;
+
+  canvas.width = textWidth + padding;
+  canvas.height = 96;
+
+  ctx.font = "48px Arial";
+  ctx.fillStyle = "white";
+  ctx.fillText(text, padding / 2, 64);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
+
+  const sprite = new THREE.Sprite(material);
+
+  // scale down so it fits your huge coordinate system
+  sprite.scale.set(canvas.width * 2000, canvas.height * 2000, 1);
+
+  return sprite;
+}
+
 function init() {
 
   // Scene
@@ -42,20 +68,28 @@ function init() {
       console.log("data JSON:", data);
 
       // ---- ZONES ----
-      data.zones.forEach(z => {
-        const geo = new THREE.SphereGeometry(z.radius, 32, 32);
-        
-        const mat = new THREE.MeshBasicMaterial({ 
-          color: z.color, 
-          transparent: true, 
-          opacity: 0.5,
-          depthTest: false
-        });
-        
-        const mesh = new THREE.Mesh(geo, mat);
-        mesh.position.set(z.x, z.y, z.z);
-        scene.add(mesh);
+     data.zones.forEach(z => {
+      const geo = new THREE.SphereGeometry(z.radius, 32, 32);
+      const mat = new THREE.MeshBasicMaterial({ 
+        color: z.color, 
+        transparent: true, 
+        opacity: 0.5,
+        depthTest: false
       });
+            
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.set(z.x, z.y, z.z);
+      scene.add(mesh);
+    
+      // ---- LABEL ----
+      const label = makeLabel(z.name);
+      label.position.set(
+        z.x,
+        z.y + z.radius + 300000,   // offset above the sphere
+        z.z
+      );
+      scene.add(label);
+    });
 
       // ---- TORUS BELT ----
       function makeTorus(major, minor, color="white") {
