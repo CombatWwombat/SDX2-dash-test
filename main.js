@@ -107,6 +107,17 @@ function init() {
       scene.add(earth);
     });
 
+  // EARTH
+  fetch("data/mars.json")
+    .then(r => r.json())
+    .then(m => {
+      const geo = new THREE.SphereGeometry(m.radius, 32, 32);
+      const mat = new THREE.MeshStandardMaterial({ color: m.color });
+      const mars = new THREE.Mesh(geo, mat);
+      earth.position.set(m.x, m.y, m.z);
+      scene.add(mars);
+    });
+
   // GPS Plot Button
   document.getElementById("plotBtn").onclick = () => {
     const text = document.getElementById("gpsInput").value;
