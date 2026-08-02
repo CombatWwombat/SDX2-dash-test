@@ -12,10 +12,6 @@
     { "name": "DX3 Venus",   "x": 2228365.57,  "y": 2228365.57, "z": -2228365.57, "color": "white", "radius": 500000 }
   ],
 
-  "planets": [
-    { "name": "DX1 Sol",     "x": 0,           "y": 0,          "z": 0,           "color": "white",  "radius": 1000000 }
-  ],
-
   "belt": [
     {
       "major": 8500000,
