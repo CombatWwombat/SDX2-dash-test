@@ -1,16 +1,16 @@
 {
   "planets": [
     { "name": "Sol",     "x": 0,           "y": 0,          "z": 0,           "color": "white",  "radius": 10000 },
-    { "name": "Earth",   "x": -2490486.75, "y": 435778.71,  "z": -4313649.58, "color": "blue",   "radius": 750000 },
+    { "name": "DX4 Earth",   "x": -2490486.75, "y": 435778.71,  "z": -4313649.58, "color": "white",   "radius": 750000 },
     { "name": "Ceres",   "x": 9447958.01,  "y": 993020.40,  "z": 0.00,        "color": "white",  "radius": 750000 },
-    { "name": "Jupiter", "x": -13594616.81,"y": 0.00,       "z": -6339273.93, "color": "orange", "radius": 2500000 },
-    { "name": "Mars",    "x": -3486681.44, "y": -610090.20, "z": 6039109.41,  "color": "red",    "radius": 750000 },
-    { "name": "Mercury", "x": -835637.09,  "y": 208377.81,  "z": 835637.09,   "color": "white",  "radius": 250000 },
-    { "name": "Neptune", "x": -20075175.27,"y": 0.00,       "z": 28670321.55, "color": "blue",   "radius": 1500000 },
-    { "name": "Pluto",   "x": -27701614.66,"y": 12940952.26,"z": -39562005.76,"color": "white",  "radius": 300000 },
-    { "name": "Saturn",  "x": 11471528.73, "y": 0.00,       "z": 16383040.89, "color": "brown",  "radius": 2500000 },
-    { "name": "Uranus",  "x": 17677669.53, "y": 0.00,       "z": 17677669.53, "color": "blue",   "radius": 1500000 },
-    { "name": "Venus",   "x": 2228365.57,  "y": 2228365.57, "z": -2228365.57, "color": "orange", "radius": 500000 }
+    { "name": "Jupiter", "x": -13594616.81,"y": 0.00,       "z": -6339273.93, "color": "white", "radius": 2500000 },
+    { "name": "DX2 Mars",    "x": -3486681.44, "y": -610090.20, "z": 6039109.41,  "color": "white",    "radius": 750000 },
+    { "name": "DX3 Mercury", "x": -835637.09,  "y": 208377.81,  "z": 835637.09,   "color": "white",  "radius": 250000 },
+    { "name": "Neptune", "x": -20075175.27,"y": 0.00,       "z": 28670321.55, "color": "white",   "radius": 1500000 },
+    { "name": "DX3 Pluto",   "x": -27701614.66,"y": 12940952.26,"z": -39562005.76,"color": "white",  "radius": 300000 },
+    { "name": "Saturn",  "x": 11471528.73, "y": 0.00,       "z": 16383040.89, "color": "white",  "radius": 2500000 },
+    { "name": "Uranus",  "x": 17677669.53, "y": 0.00,       "z": 17677669.53, "color": "white",   "radius": 1500000 },
+    { "name": "DX3 Venus",   "x": 2228365.57,  "y": 2228365.57, "z": -2228365.57, "color": "white", "radius": 500000 }
   ],
 
   "belt": [
