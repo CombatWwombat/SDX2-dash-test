@@ -71,6 +71,7 @@ function init() {
           wireframe: false,
           transparent: true,
           opacity: 0.5,
+          blending: THREE.AdditiveBlending,
           depthWrite: false
         });
 
