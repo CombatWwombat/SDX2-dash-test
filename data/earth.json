@@ -1,0 +1,8 @@
+ {
+  "name": "Earth",
+  "x": 0,
+  "y": 0,
+  "z": 0,
+  "radius": 100000,
+  "color": "blue"
+}
