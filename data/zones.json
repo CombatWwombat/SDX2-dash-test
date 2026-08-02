@@ -10,7 +10,7 @@
     { "name": "DX8 Saturn",  "x": 11471528.73, "y": 0.00,       "z": 16383040.89, "color": "white",  "radius": 2500000 },
     { "name": "DX9 Uranus",  "x": 17677669.53, "y": 0.00,       "z": 17677669.53, "color": "white",   "radius": 1500000 },
     { "name": "DX3 Venus",   "x": 2228365.57,  "y": 2228365.57, "z": -2228365.57, "color": "white", "radius": 500000 },
-    { "name": "DX10 Trojans",   "x": -6339273.93:,  "y": 0.00, "z": -13594616.81, "color": "white", "radius": 1500000 },
+    { "name": "DX10 Trojans",   "x": -6339273.93,  "y": 0.00, "z": -13594616.81, "color": "white", "radius": 1500000 },
     { "name": "DX11 Greeks",   "x": -14488887.39,  "y": 0.00, "z": 3882285.68:, "color": "white", "radius": 1500000 }
   ],
 
