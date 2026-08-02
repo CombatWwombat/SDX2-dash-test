@@ -1,7 +1,7 @@
 let scene, camera, renderer, controls;
 let marker = null;
 
-// ---- LABEL MAKER ----
+//LABELS
 function makeLabel(text) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -22,25 +22,22 @@ function makeLabel(text) {
   texture.minFilter = THREE.LinearFilter;
   texture.magFilter = THREE.LinearFilter;
 
-  const material = new THREE.MeshBasicMaterial({
+  const material = new THREE.SpriteMaterial({
     map: texture,
     transparent: true,
-    alphaTest: 0.01,
-    side: THREE.DoubleSide,
-    depthTest: false,     // <--- THIS FIXES THE BLACK BOX
-    depthWrite: false     // <--- prevents writing garbage into depth buffer
+    depthTest: false,   // <--- FIX
+    depthWrite: false   // <--- FIX
   });
 
+  const sprite = new THREE.Sprite(material);
 
-  const geometry = new THREE.PlaneGeometry(canvas.width, canvas.height);
-  const plane = new THREE.Mesh(geometry, material);
+  // fixed size
+  const size = 150000;   // adjust as needed
+  sprite.scale.set(size, size * 0.5, 1);
 
-  // fixed world size
-  const size = 30000;
-  plane.scale.set(size, size * 0.5, 1);
-
-  return plane;
+  return sprite;
 }
+
 
 function init() {
 
