@@ -78,6 +78,11 @@ function init() {
       return torus;
     }
 
+    data.belt.forEach(b => {
+      const torus = makeTorus(b.major, b.minor);
+      scene.add(torus);
+    });
+
   // GPS Plot Button
   document.getElementById("plotBtn").onclick = () => {
     const text = document.getElementById("gpsInput").value;
