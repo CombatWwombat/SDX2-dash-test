@@ -42,7 +42,7 @@ function init() {
       data.planets.forEach(p => {
         const geo = new THREE.SphereGeometry(p.radius, 32, 32);
         
-        const mat = new THREE.MeshBasicMaterial({ 
+        const mat = new THREE.MeshStandardMaterial({ 
           color: p.color, 
           transparent: true, 
           opacity: 0.5,
