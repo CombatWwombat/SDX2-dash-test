@@ -2,7 +2,7 @@ let scene, camera, renderer, controls;
 let marker = null;
 
 // ---- LABEL MAKER ----
-function makeLabel(text, radius) {
+function makeLabel(text) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
@@ -29,9 +29,9 @@ function makeLabel(text, radius) {
 
   const sprite = new THREE.Sprite(material);
 
-  // scale relative to zone radius
-  const scale = radius * 0.6;
-  sprite.scale.set(scale, scale * 0.4, 1);
+  // FIXED SIZE — same for all zones
+  const size = 2e6;   // adjust if needed
+  sprite.scale.set(size, size * 0.5, 1);
 
   return sprite;
 }
@@ -91,7 +91,7 @@ function init() {
         scene.add(mesh);
 
         // ---- LABEL ----
-        const label = makeLabel(z.name, z.radius);
+        const label = makeLabel(z.name);
         label.position.set(
           z.x,
           z.y + z.radius + (z.radius * 0.3),
