@@ -58,35 +58,31 @@ function init() {
       });
 
       // ---- TORUS BELT ----
-      function makeTorus(major, minor, color="gray") {
-        const geom = new THREE.TorusGeometry(
-          major,
-          minor,
-          32,
-          128
-        );
+    function makeTorus(major, minor, color="gray") {
+    const geom = new THREE.TorusGeometry(
+      major,
+      minor,
+      32,
+      128
+    );
+  
+    const mat = new THREE.MeshStandardMaterial({
+      color,
+      transparent: true,
+      opacity: 0.5
+    });
+  
+    const torus = new THREE.Mesh(geom, mat);
+  
+    // ⭐ Option 2 — force stable rendering order
+    mat.depthWrite = false;
+    mat.depthTest = false;
+    torus.renderOrder = 999;
+  
+    torus.rotation.x = Math.PI / 2;
+    return torus;
+  }
 
-        const mat = new THREE.MeshBasicMaterial({
-          color,
-          wireframe: false,
-          transparent: true,
-          opacity: 0.5,
-          blending: THREE.AdditiveBlending,
-          depthWrite: false
-        });
-
-        const torus = new THREE.Mesh(geom, mat);
-        torus.rotation.x = Math.PI / 2;
-        return torus;
-      }
-
-      data.belt.forEach(b => {
-        const torus = makeTorus(b.major, b.minor);
-        scene.add(torus);
-      });
-
-    })
-    .catch(err => console.error("JSON load error:", err));
 
   // GPS Plot Button
   document.getElementById("plotBtn").onclick = () => {
