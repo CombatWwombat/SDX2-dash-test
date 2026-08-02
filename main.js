@@ -103,7 +103,7 @@ function init() {
       const geo = new THREE.SphereGeometry(e.radius, 32, 32);
       const mat = new THREE.MeshBasicMaterial({ color: e.color });
       const earth = new THREE.Mesh(geo, mat);
-      sol.position.set(e.x, e.y, e.z);
+      earth.position.set(e.x, e.y, e.z);
       scene.add(earth);
     });
   
