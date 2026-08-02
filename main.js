@@ -1,7 +1,8 @@
 let scene, camera, renderer, controls;
 let marker = null;
+let labels = [];   // store all labels so we can rotate them
 
-//LABELS
+// ---- LABEL MAKER ----
 function makeLabel(text) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -25,19 +26,18 @@ function makeLabel(text) {
   const material = new THREE.SpriteMaterial({
     map: texture,
     transparent: true,
-    depthTest: false, 
-    depthWrite: false   
+    depthTest: false,   // prevents black box
+    depthWrite: false   // prevents depth pollution
   });
 
   const sprite = new THREE.Sprite(material);
 
   // fixed size
-  const size = 1000;   // adjust as needed
+  const size = 150000;
   sprite.scale.set(size, size * 0.5, 1);
 
   return sprite;
 }
-
 
 function init() {
 
@@ -101,6 +101,7 @@ function init() {
           z.z
         );
         scene.add(label);
+        labels.push(label);
       });
 
       // ---- TORUS BELT ----
@@ -209,7 +210,14 @@ function parseGPS(text) {
 // ---- ANIMATION LOOP ----
 function animate() {
   requestAnimationFrame(animate);
+
   controls.update();
+
+  // Force sprites to face the camera
+  labels.forEach(label => {
+    label.quaternion.copy(camera.quaternion);
+  });
+
   renderer.render(scene, camera);
 }
 
