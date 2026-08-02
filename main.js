@@ -44,6 +44,8 @@ function init() {
         const mat = new THREE.MeshStandardMaterial({ color: p.color });
         const mesh = new THREE.Mesh(geo, mat);
         mesh.position.set(p.x, p.y, p.z);
+        mesh.castShadow = false;
+        mesh.receiveShadow = false;
         scene.add(mesh);
       });
 
