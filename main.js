@@ -41,7 +41,14 @@ function init() {
       // ---- PLANETS ----
       data.planets.forEach(p => {
         const geo = new THREE.SphereGeometry(p.radius, 32, 32);
-        const mat = new THREE.MeshBasicMaterial({ color: p.color, transparent: true, opacity: 0.5});
+        
+        const mat = new THREE.MeshBasicMaterial({ 
+          color: p.color, 
+          transparent: true, 
+          opacity: 0.5,
+          depthwrite: false                                 
+        });
+        
         const mesh = new THREE.Mesh(geo, mat);
         mesh.position.set(p.x, p.y, p.z);
         scene.add(mesh);
