@@ -58,7 +58,7 @@ function init() {
       });
 
       // ---- TORUS BELT ----
-      function makeTorus(major, minor, color="gray") {
+      function makeTorus(major, minor, color="white") {
         const geom = new THREE.TorusGeometry(
           major,
           minor,
