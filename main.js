@@ -34,11 +34,15 @@ function init() {
       console.log("data JSON:", data);
 
       // ---- PLANETS ----
-    const geom = new THREE.SphereGeometry(p.radius, 32, 32);
-    const mat = new THREE.MeshBasicMaterial({ color: "gray" });
-    const mesh = new THREE.Mesh(geom, mat);
-    mesh.position.set(p.x, p.y, p.z);
-    scene.add(mesh);
+    // ---- PLANETS ----
+    data.planets.forEach(p => {
+      const geom = new THREE.SphereGeometry(p.radius, 32, 32);
+      const mat = new THREE.MeshBasicMaterial({ color: "gray" });
+      const mesh = new THREE.Mesh(geom, mat);
+      mesh.position.set(p.x, p.y, p.z);
+      scene.add(mesh);
+    });
+
 
       // ---- TORUS BELT ----
       function makeTorus(major, minor, color="gray") {
