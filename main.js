@@ -46,7 +46,8 @@ function init() {
           color: p.color, 
           transparent: true, 
           opacity: 0.5,
-          depthWrite: false                                 
+          depthWrite: false,
+          depthTest: false
         });
         
         const mesh = new THREE.Mesh(geo, mat);
