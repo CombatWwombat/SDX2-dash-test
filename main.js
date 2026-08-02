@@ -70,7 +70,8 @@ function init() {
           color,
           wireframe: false,
           transparent: true,
-          opacity: 0.5
+          opacity: 0.5,
+          depthWrite: false
         });
 
         const torus = new THREE.Mesh(geom, mat);
