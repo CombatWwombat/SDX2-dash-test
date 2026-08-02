@@ -2,27 +2,33 @@ let scene, camera, renderer, controls;
 let marker = null;
 
 function makeLabel(text) {
+  const scaleFactor = 4;
+
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
-  ctx.font = "48px Arial";
-  const padding = 40;
+  ctx.font = `${64 * scaleFactor}px Inter, Arial`;
+  ctx.textBaseline = "middle";
+
+  const padding = 40 * scaleFactor;
   const textWidth = ctx.measureText(text).width;
 
   canvas.width = textWidth + padding;
-  canvas.height = 96;
+  canvas.height = 128 * scaleFactor;
 
-  ctx.font = "48px Arial";
+  ctx.font = `${64 * scaleFactor}px Inter, Arial`;
   ctx.fillStyle = "white";
-  ctx.fillText(text, padding / 2, 64);
+  ctx.fillText(text, padding / 2, canvas.height / 2);
 
   const texture = new THREE.CanvasTexture(canvas);
-  const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
+  const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
   const sprite = new THREE.Sprite(material);
 
-  // scale down so it fits your huge coordinate system
-  sprite.scale.set(canvas.width * 5000, canvas.height * 5000, 1);
+  sprite.scale.set(canvas.width * 2500, canvas.height * 2500, 1);
 
   return sprite;
 }
