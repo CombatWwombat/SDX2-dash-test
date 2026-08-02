@@ -35,7 +35,7 @@ function init() {
   scene.add(light);
 
   // Load data.json
-  fetch("data.json")
+  fetch("data/zones.json")
     .then(r => r.json())
     .then(data => {
 
@@ -54,19 +54,6 @@ function init() {
         
         const mesh = new THREE.Mesh(geo, mat);
         mesh.position.set(z.x, z.y, z.z);
-        scene.add(mesh);
-      });
-
-      // ---- PLANETS ----
-      data.planets.forEach(p => {
-        const geo = new THREE.SphereGeometry(p.radius, 32, 32);
-        
-        const mat = new THREE.MeshBasicMaterial({ 
-          color: p.color
-        });
-        
-        const mesh = new THREE.Mesh(geo, mat);
-        mesh.position.set(p.x, p.y, p.z);
         scene.add(mesh);
       });
 
@@ -98,6 +85,18 @@ function init() {
 
     })
     .catch(err => console.error("JSON load error:", err));
+
+    //SOL
+    fetch("data/sol.json")
+      .then(r => r.json())
+      .then(s => {
+        const geo = new THREE.SphereGeometry(s.radius, 32, 32);
+        const mat = new THREE.MeshBasicMaterial({ color: s.color });
+        const sol = new THREE.Mesh(geo, mat);
+        sol.position.set(s.x, s.y, s.z);
+        scene.add(sol);
+      });
+  
 
   // GPS Plot Button
   document.getElementById("plotBtn").onclick = () => {
