@@ -106,7 +106,6 @@ function init() {
       earth.position.set(e.x, e.y, e.z);
       scene.add(earth);
     });
-  
 
   // GPS Plot Button
   document.getElementById("plotBtn").onclick = () => {
