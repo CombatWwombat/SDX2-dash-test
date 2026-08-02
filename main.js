@@ -42,7 +42,7 @@ function init() {
       console.log("data JSON:", data);
 
       // ---- PLANETS ----
-      data.planets.forEach(p => {
+      data.zones.forEach(p => {
         const geo = new THREE.SphereGeometry(p.radius, 32, 32);
         
         const mat = new THREE.MeshBasicMaterial({ 
