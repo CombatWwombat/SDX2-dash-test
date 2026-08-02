@@ -22,7 +22,7 @@ function makeLabel(text) {
   const sprite = new THREE.Sprite(material);
 
   // scale down so it fits your huge coordinate system
-  sprite.scale.set(canvas.width * 1000, canvas.height * 1000, 1);
+  sprite.scale.set(canvas.width * 10000, canvas.height * 10000, 1);
 
   return sprite;
 }
