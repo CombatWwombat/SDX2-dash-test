@@ -213,12 +213,23 @@ function animate() {
 
   controls.update();
 
-  // Force sprites to face the camera
+  const camQuat = camera.quaternion;
+
   labels.forEach(label => {
-    label.quaternion.copy(camera.quaternion);
+    // Always face camera
+    label.quaternion.copy(camQuat);
+
+    // Keep same visual size regardless of zoom
+    const dist = camera.position.distanceTo(label.position);
+
+    const base = 5000000;   // your original size
+    const screenScale = dist * 0.0001;  // adjust multiplier to taste
+
+    label.scale.set(base * screenScale, (base * 0.5) * screenScale, 1);
   });
 
   renderer.render(scene, camera);
 }
+
 
 window.onload = init;
