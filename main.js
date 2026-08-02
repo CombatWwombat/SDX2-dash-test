@@ -95,6 +95,17 @@ function init() {
       sol.position.set(s.x, s.y, s.z);
       scene.add(sol);
     });
+
+  // EARTH
+  fetch("data/earth.json")
+    .then(r => r.json())
+    .then(e => {
+      const geo = new THREE.SphereGeometry(e.radius, 32, 32);
+      const mat = new THREE.MeshBasicMaterial({ color: e.color });
+      const earth = new THREE.Mesh(geo, mat);
+      sol.position.set(e.x, e.y, e.z);
+      scene.add(earth);
+    });
   
 
   // GPS Plot Button
