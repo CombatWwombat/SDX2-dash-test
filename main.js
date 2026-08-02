@@ -23,19 +23,16 @@ function init() {
   });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
-  
+
   // Controls
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.target.set(0, 0, 0);
   controls.update();
-  
-  // GLOBAL LIGHTS
-  const ambient = new THREE.AmbientLight(0xffffff, 0.4);
-  scene.add(ambient);
-  
-  const sunLight = new THREE.DirectionalLight(0xffffff, 1);
-  sunLight.position.set(1, 1, 1);
-  scene.add(sunLight);
+
+  // LIGHT
+  const light = new THREE.DirectionalLight(0xffffff, 2);
+  light.position.set(1, 1, 1);
+  scene.add(light);
 
   // Load data.json
   fetch("data/zones.json")
@@ -87,28 +84,18 @@ function init() {
 
     })
     .catch(err => console.error("JSON load error:", err));
+
   // SOL
   fetch("data/sol.json")
     .then(r => r.json())
     .then(s => {
-      const geo = new THREE.SphereGeometry(s.radius, 64, 64);
-  
-      const mat = new THREE.MeshStandardMaterial({
-        color: s.color,
-        emissive: s.color,
-        emissiveIntensity: 5
-      });
-  
+      const geo = new THREE.SphereGeometry(s.radius, 32, 32);
+      const mat = new THREE.MeshBasicMaterial({ color: s.color });
       const sol = new THREE.Mesh(geo, mat);
       sol.position.set(s.x, s.y, s.z);
       scene.add(sol);
-  
-      // REAL LIGHT SOURCE
-      const light = new THREE.PointLight(s.color, 5, 0);
-      light.position.set(s.x, s.y, s.z);
-      scene.add(light);
     });
-
+  
 
   // GPS Plot Button
   document.getElementById("plotBtn").onclick = () => {
