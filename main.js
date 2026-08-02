@@ -28,7 +28,7 @@ function makeLabel(text) {
   const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
   const sprite = new THREE.Sprite(material);
 
-  sprite.scale.set(canvas.width * 2500, canvas.height * 2500, 1);
+  sprite.scale.set(canvas.width * 5000, canvas.height * 5000, 1);
 
   return sprite;
 }
