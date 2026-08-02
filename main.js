@@ -23,20 +23,21 @@ function makeLabel(text) {
   const texture = new THREE.CanvasTexture(canvas);
   texture.minFilter = THREE.LinearFilter;
   texture.magFilter = THREE.LinearFilter;
-  texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
   const material = new THREE.MeshBasicMaterial({
     map: texture,
     transparent: true,
-    alphaTest: 0.01,      // removes black halos completely
-    side: THREE.DoubleSide
+    alphaTest: 0.01,
+    side: THREE.DoubleSide,
+    depthTest: false,   // <- key: don't test against depth buffer
+    depthWrite: false   // <- key: don't write to depth buffer
   });
 
   const geometry = new THREE.PlaneGeometry(canvas.width, canvas.height);
   const plane = new THREE.Mesh(geometry, material);
 
-  // world scaling
   plane.scale.set(10000, 10000, 1);
+  plane.renderOrder = 999;       // <- key: render on top
 
   return plane;
 }
@@ -69,7 +70,7 @@ function init() {
   controls.target.set(0, 0, 0);
   controls.update();
 
-  // LIGHT (required for MeshStandardMaterial)
+  // LIGHT
   const light = new THREE.DirectionalLight(0xffffff, 2);
   light.position.set(1, 1, 1);
   scene.add(light);
@@ -82,30 +83,28 @@ function init() {
       console.log("data JSON:", data);
 
       // ---- ZONES ----
-     data.zones.forEach(z => {
-      const geo = new THREE.SphereGeometry(z.radius, 32, 32);
-      const mat = new THREE.MeshBasicMaterial({ 
-        color: z.color, 
-        transparent: true, 
-        opacity: 0.5,
-        depthTest: false
+      data.zones.forEach(z => {
+        const geo = new THREE.SphereGeometry(z.radius, 32, 32);
+        const mat = new THREE.MeshBasicMaterial({ 
+          color: z.color, 
+          transparent: true, 
+          opacity: 0.5,
+          depthTest: false
+        });
+              
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.position.set(z.x, z.y, z.z);
+        scene.add(mesh);
+      
+        // ---- LABEL ----
+        const label = makeLabel(z.name);
+        label.position.set(
+          z.x,
+          z.y + z.radius + 300000,
+          z.z
+        );
+        scene.add(label);
       });
-            
-      const mesh = new THREE.Mesh(geo, mat);
-      mesh.position.set(z.x, z.y, z.z);
-      scene.add(mesh);
-    
-      // ---- LABEL ----
-      const label = makeLabel(z.name);
-      label.position.set(
-        z.x,
-        z.y + z.radius + 300000,
-        z.z
-      );
-      label.lookAt(camera.position);
-      scene.add(label);
-
-    });
 
       // ---- TORUS BELT ----
       function makeTorus(major, minor, color="white") {
@@ -136,16 +135,16 @@ function init() {
     })
     .catch(err => console.error("JSON load error:", err));
 
-    //SOL
-    fetch("data/sol.json")
-      .then(r => r.json())
-      .then(s => {
-        const geo = new THREE.SphereGeometry(s.radius, 32, 32);
-        const mat = new THREE.MeshBasicMaterial({ color: s.color });
-        const sol = new THREE.Mesh(geo, mat);
-        sol.position.set(s.x, s.y, s.z);
-        scene.add(sol);
-      });
+  // SOL
+  fetch("data/sol.json")
+    .then(r => r.json())
+    .then(s => {
+      const geo = new THREE.SphereGeometry(s.radius, 32, 32);
+      const mat = new THREE.MeshBasicMaterial({ color: s.color });
+      const sol = new THREE.Mesh(geo, mat);
+      sol.position.set(s.x, s.y, s.z);
+      scene.add(sol);
+    });
   
 
   // GPS Plot Button
@@ -192,13 +191,16 @@ function parseGPS(text) {
 // ---- ANIMATION LOOP ----
 function animate() {
   requestAnimationFrame(animate);
+
   scene.traverse(obj => {
     if (obj.isMesh && obj.geometry.type === "PlaneGeometry") {
       obj.lookAt(camera.position);
     }
   });
+
   controls.update();
   renderer.render(scene, camera);
 }
 
 window.onload = init;
+
