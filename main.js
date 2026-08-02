@@ -48,7 +48,8 @@ function init() {
         const mat = new THREE.MeshStandardMaterial({ 
           color: p.color, 
           transparent: true, 
-          opacity: 0.5
+          opacity: 0.5,
+          depthWrite: false
         });
         
         const mesh = new THREE.Mesh(geo, mat);
