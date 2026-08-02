@@ -1,5 +1,5 @@
 {
-  planets: [
+  "planets": [
     { name: "Sol",     x: 0,           y: 0,           z: 0,            color: 0xffffff, radius: 0 },
     { name: "Earth",   x: -2490486.75, y: 435778.71,   z: -4313649.58,  color: 0x0000ff, radius: 750000 },
     { name: "Ceres",   x: 9447958.01,  y: 993020.40,   z: 0.00,         color: 0xffffff, radius: 750000 },
@@ -13,7 +13,7 @@
     { name: "Venus",   x: 2228365.57,  y: 2228365.57,  z: -2228365.57,  color: 0xffa500, radius: 500000 }
   ],
 
-  belt: [
+  "belt": [
     {
       major: 8500000,
       minor: 500000
