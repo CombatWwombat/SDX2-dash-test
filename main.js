@@ -68,7 +68,7 @@ function init() {
 
         const mat = new THREE.MeshBasicMaterial({
           color,
-          wireframe: false
+          wireframe: false,
           transparent: true,
           opacity: 0.5
         });
