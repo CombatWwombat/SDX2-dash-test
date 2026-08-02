@@ -10,7 +10,7 @@
     { name: "Pluto",   x: -27701614.66,y: 12940952.26, z: -39562005.76, color: 0xffffff, radius: 300000 },
     { name: "Saturn",  x: 11471528.73, y: 0.00,        z: 16383040.89,  color: 0x8b4513, radius: 2500000 },
     { name: "Uranus",  x: 17677669.53, y: 0.00,        z: 17677669.53,  color: 0x0000ff, radius: 1500000 },
-    { name: "Venus",   x: 2228365.57,  y: 2228365.57,  z: -2228365.57,  color: 0xffa500, radius: 500000 }
+    { name: "Venus",   x: 2228365.57,  y: 2228365.57,  z: -2228365.57,  color: "orange", radius: 500000 }
   ],
 
   "belt": [
