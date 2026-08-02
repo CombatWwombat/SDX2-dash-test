@@ -22,18 +22,21 @@ function makeLabel(text) {
   texture.minFilter = THREE.LinearFilter;
   texture.magFilter = THREE.LinearFilter;
 
-  const material = new THREE.SpriteMaterial({
+  const material = new THREE.MeshBasicMaterial({
     map: texture,
-    transparent: true
+    transparent: true,
+    alphaTest: 0.01,   // kills halos completely
+    side: THREE.DoubleSide
   });
 
-  const sprite = new THREE.Sprite(material);
+  const geometry = new THREE.PlaneGeometry(canvas.width, canvas.height);
+  const plane = new THREE.Mesh(geometry, material);
 
-  // FIXED SIZE — same for all zones
-  const size = 2e6;   // adjust if needed
-  sprite.scale.set(size, size * 0.5, 1);
+  // fixed world size
+  const size = 2e6;
+  plane.scale.set(size, size * 0.5, 1);
 
-  return sprite;
+  return plane;
 }
 
 function init() {
