@@ -26,6 +26,11 @@ function init() {
   controls.target.set(0, 0, 0);
   controls.update();
 
+  // LIGHT (required for MeshStandardMaterial)
+  const light = new THREE.DirectionalLight(0xffffff, 2);
+  light.position.set(1, 1, 1);
+  scene.add(light);
+
   // Load data.json
   fetch("data.json")
     .then(r => r.json())
@@ -34,24 +39,21 @@ function init() {
       console.log("data JSON:", data);
 
       // ---- PLANETS ----
-    // ---- PLANETS ----
-    data.planets.forEach(p => {
-      const geo = new THREE.SphereGeometry(p.radius, 32, 32);
-      const mat = new THREE.MeshStandardMaterial({ color: p.color });
-      const mesh = new THREE.Mesh(geo, mat);
-      mesh.position.set(p.x, p.y, p.z);
-      scene.add(mesh);
-    });
-
-
+      data.planets.forEach(p => {
+        const geo = new THREE.SphereGeometry(p.radius, 32, 32);
+        const mat = new THREE.MeshStandardMaterial({ color: p.color });
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.position.set(p.x, p.y, p.z);
+        scene.add(mesh);
+      });
 
       // ---- TORUS BELT ----
       function makeTorus(major, minor, color="gray") {
         const geom = new THREE.TorusGeometry(
-          major,      // distance from center
-          minor,      // tube radius
-          32,         // tube segments
-          128         // radial segments
+          major,
+          minor,
+          32,
+          128
         );
 
         const mat = new THREE.MeshBasicMaterial({
@@ -60,14 +62,10 @@ function init() {
         });
 
         const torus = new THREE.Mesh(geom, mat);
-
-        // Lay it flat like a planetary belt
         torus.rotation.x = Math.PI / 2;
-
         return torus;
       }
 
-      // Create belt from JSON
       data.belt.forEach(b => {
         const torus = makeTorus(b.major, b.minor);
         scene.add(torus);
@@ -104,8 +102,6 @@ function init() {
 }
 
 // ---- GPS PARSER ----
-// Accepts Space Engineers GPS format:
-// GPS:Name:X:Y:Z:
 function parseGPS(text) {
   try {
     const parts = text.split(":");
@@ -126,5 +122,4 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-// ---- START ----
 window.onload = init;
