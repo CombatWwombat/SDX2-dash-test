@@ -1,47 +1,6 @@
 let scene, camera, renderer, controls;
 let marker = null;
 
-function makeLabel(text) {
-  const scaleFactor = 4;
-
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
-
-  ctx.font = `${64 * scaleFactor}px Arial`;
-  ctx.textBaseline = "middle";
-
-  const padding = 40 * scaleFactor;
-  const textWidth = ctx.measureText(text).width;
-
-  canvas.width = textWidth + padding;
-  canvas.height = 128 * scaleFactor;
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "white";
-  ctx.fillText(text, padding / 2, canvas.height / 2);
-
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.minFilter = THREE.LinearFilter;
-  texture.magFilter = THREE.LinearFilter;
-
-  const material = new THREE.MeshBasicMaterial({
-    map: texture,
-    transparent: true,
-    alphaTest: 0.01,
-    side: THREE.DoubleSide,
-    depthTest: false,   // <- key: don't test against depth buffer
-    depthWrite: false   // <- key: don't write to depth buffer
-  });
-
-  const geometry = new THREE.PlaneGeometry(canvas.width, canvas.height);
-  const plane = new THREE.Mesh(geometry, material);
-
-  plane.scale.set(10000, 10000, 1);
-  plane.renderOrder = 999;       // <- key: render on top
-
-  return plane;
-}
-
 function init() {
 
   // Scene
@@ -95,15 +54,6 @@ function init() {
         const mesh = new THREE.Mesh(geo, mat);
         mesh.position.set(z.x, z.y, z.z);
         scene.add(mesh);
-      
-        // ---- LABEL ----
-        const label = makeLabel(z.name);
-        label.position.set(
-          z.x,
-          z.y + z.radius + 300000,
-          z.z
-        );
-        scene.add(label);
       });
 
       // ---- TORUS BELT ----
@@ -191,16 +141,8 @@ function parseGPS(text) {
 // ---- ANIMATION LOOP ----
 function animate() {
   requestAnimationFrame(animate);
-
-  scene.traverse(obj => {
-    if (obj.isMesh && obj.geometry.type === "PlaneGeometry") {
-      obj.lookAt(camera.position);
-    }
-  });
-
   controls.update();
   renderer.render(scene, camera);
 }
 
 window.onload = init;
-
