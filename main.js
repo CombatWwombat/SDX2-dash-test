@@ -7,7 +7,7 @@ function makeLabel(text) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
-  ctx.font = `${64 * scaleFactor}px Inter, Arial`;
+  ctx.font = `${64 * scaleFactor}px Arial`;
   ctx.textBaseline = "middle";
 
   const padding = 40 * scaleFactor;
@@ -16,19 +16,27 @@ function makeLabel(text) {
   canvas.width = textWidth + padding;
   canvas.height = 128 * scaleFactor;
 
-  ctx.font = `${64 * scaleFactor}px Inter, Arial`;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.font = `${64 * scaleFactor}px Arial`;
   ctx.fillStyle = "white";
   ctx.fillText(text, padding / 2, canvas.height / 2);
 
   const texture = new THREE.CanvasTexture(canvas);
+
   texture.minFilter = THREE.LinearFilter;
   texture.magFilter = THREE.LinearFilter;
   texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
-  const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
+  const material = new THREE.SpriteMaterial({
+    map: texture,
+    transparent: true,
+    premultipliedAlpha: true
+  });
+
   const sprite = new THREE.Sprite(material);
 
-  sprite.scale.set(canvas.width * 5000, canvas.height * 5000, 1);
+  sprite.scale.set(canvas.width * 10000, canvas.height * 10000, 1);
 
   return sprite;
 }
