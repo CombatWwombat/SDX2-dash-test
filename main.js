@@ -17,28 +17,28 @@ function makeLabel(text) {
   canvas.height = 128 * scaleFactor;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  ctx.font = `${64 * scaleFactor}px Arial`;
   ctx.fillStyle = "white";
   ctx.fillText(text, padding / 2, canvas.height / 2);
 
   const texture = new THREE.CanvasTexture(canvas);
-
   texture.minFilter = THREE.LinearFilter;
   texture.magFilter = THREE.LinearFilter;
   texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
-  const material = new THREE.SpriteMaterial({
+  const material = new THREE.MeshBasicMaterial({
     map: texture,
     transparent: true,
-    premultipliedAlpha: true
+    alphaTest: 0.01,      // removes black halos completely
+    side: THREE.DoubleSide
   });
 
-  const sprite = new THREE.Sprite(material);
+  const geometry = new THREE.PlaneGeometry(canvas.width, canvas.height);
+  const plane = new THREE.Mesh(geometry, material);
 
-  sprite.scale.set(canvas.width * 10000, canvas.height * 10000, 1);
+  // world scaling
+  plane.scale.set(10000, 10000, 1);
 
-  return sprite;
+  return plane;
 }
 
 function init() {
@@ -99,10 +99,12 @@ function init() {
       const label = makeLabel(z.name);
       label.position.set(
         z.x,
-        z.y + z.radius + 300000,   // offset above the sphere
+        z.y + z.radius + 300000,
         z.z
       );
+      label.lookAt(camera.position);
       scene.add(label);
+
     });
 
       // ---- TORUS BELT ----
@@ -190,6 +192,11 @@ function parseGPS(text) {
 // ---- ANIMATION LOOP ----
 function animate() {
   requestAnimationFrame(animate);
+  scene.traverse(obj => {
+    if (obj.isMesh && obj.geometry.type === "PlaneGeometry") {
+      obj.lookAt(camera.position);
+    }
+  });
   controls.update();
   renderer.render(scene, camera);
 }
