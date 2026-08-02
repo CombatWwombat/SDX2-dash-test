@@ -17,7 +17,10 @@ function init() {
   camera.lookAt(0, 0, 0);
 
   // Renderer
-  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer = new THREE.WebGLRenderer({
+    antialias: true,
+    logarithmicDepthBuffer: true
+  });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
@@ -42,7 +45,7 @@ function init() {
       data.planets.forEach(p => {
         const geo = new THREE.SphereGeometry(p.radius, 32, 32);
         
-        const mat = new THREE.MeshPhongMaterial({ 
+        const mat = new THREE.MeshBasicMaterial({ 
           color: p.color, 
           transparent: true, 
           opacity: 0.5,
