@@ -35,13 +35,14 @@ function init() {
 
       // ---- PLANETS ----
     // ---- PLANETS ----
-    data.planets.forEach(p => {
-      const geom = new THREE.SphereGeometry(p.radius, 32, 32);
-      const mat = new THREE.MeshBasicMaterial({ color: "gray" });
-      const mesh = new THREE.Mesh(geom, mat);
+    planets.forEach(p => {
+      const geo = new THREE.SphereGeometry(p.radius, 32, 32);
+      const mat = new THREE.MeshStandardMaterial({ color: p.color });
+      const mesh = new THREE.Mesh(geo, mat);
       mesh.position.set(p.x, p.y, p.z);
       scene.add(mesh);
     });
+
 
 
       // ---- TORUS BELT ----
