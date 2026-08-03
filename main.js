@@ -1,8 +1,8 @@
-let scene, camera, renderer, controls;
+.let scene, camera, renderer, controls;
 let marker = null;
 let labels = [];   // store all labels so we can rotate them
 
-// ---- LABEL MAKER ----
+//LABELS
 function makeLabel(text) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
