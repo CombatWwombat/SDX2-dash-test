@@ -170,7 +170,7 @@ function init() {
     const coords = parseGPS(text);
 
     if (!coords) {
-      document.getElementById("status").innerText = "Invalid GPS format";
+      document.getElementById("status").innerText = "Invalid GPS";
       return;
     }
 
