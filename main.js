@@ -1,4 +1,4 @@
-.let scene, camera, renderer, controls;
+let scene, camera, renderer, controls;
 let marker = null;
 let labels = [];   // store all labels so we can rotate them
 
