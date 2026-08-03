@@ -178,7 +178,7 @@ function init() {
 
     if (marker) scene.remove(marker);
 
-    const geom = new THREE.SphereGeometry(300000, 32, 32);
+    const geom = new THREE.SphereGeometry(100000, 32, 32);
     const mat = new THREE.MeshBasicMaterial({ color: "lime" });
     marker = new THREE.Mesh(geom, mat);
     marker.position.set(x, y, z);
