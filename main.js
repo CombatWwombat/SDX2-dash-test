@@ -36,7 +36,7 @@ function makeLabel(text) {
   const aspect = canvas.width / canvas.height;
 
   // Base plane size tuned to match your old sprite labels
-  const baseHeight = 0.1;
+  const baseHeight = 0.5;
   const baseWidth = baseHeight * aspect;
   
   const geometry = new THREE.PlaneGeometry(baseWidth, baseHeight);
