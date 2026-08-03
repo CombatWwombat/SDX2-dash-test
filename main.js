@@ -7,14 +7,18 @@ function makeLabel(text) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
-  ctx.font = "64px Arial";
-  const padding = 40;
+  // HIGH DPI SCALE
+  const dpi = 4; // 4× resolution = very sharp
+  const fontSize = 64 * dpi;
+  const padding = 40 * dpi;
+
+  ctx.font = `${fontSize}px Arial`;
   const textWidth = ctx.measureText(text).width;
 
   canvas.width = textWidth + padding;
-  canvas.height = 128;
+  canvas.height = fontSize + padding;
 
-  ctx.font = "64px Arial";
+  ctx.font = `${fontSize}px Arial`;
   ctx.fillStyle = "white";
   ctx.textBaseline = "middle";
   ctx.fillText(text, padding / 2, canvas.height / 2);
@@ -32,10 +36,13 @@ function makeLabel(text) {
 
   const sprite = new THREE.Sprite(material);
 
-  sprite.scale.set(1,1,1);
+  // SCALE DOWN to normal size
+  const scale = 1 / dpi;
+  sprite.scale.set(scale, scale, 1);
 
   return sprite;
 }
+
 
 function init() {
 
