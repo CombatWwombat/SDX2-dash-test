@@ -81,7 +81,7 @@ function init() {
       data.zones.forEach(z => {
         const geo = new THREE.SphereGeometry(z.radius, 32, 32);
         const mat = new THREE.MeshBasicMaterial({ 
-          color: z.color, 
+          color: "white", 
           transparent: true, 
           opacity: 0.1,
           depthTest: false
@@ -103,7 +103,7 @@ function init() {
       });
 
       // ---- TORUS BELT ----
-      function makeTorus(major, minor, color="white") {
+      function makeTorus(major, minor) {
         const geom = new THREE.TorusGeometry(
           major,
           minor,
@@ -112,7 +112,7 @@ function init() {
         );
 
         const mat = new THREE.MeshBasicMaterial({
-          color,
+          color: "white",
           wireframe: false,
           transparent: true,
           opacity: 0.1
