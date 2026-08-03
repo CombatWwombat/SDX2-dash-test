@@ -34,12 +34,16 @@ function makeLabel(text) {
   });
 
   const aspect = canvas.width / canvas.height;
-  const geometry = new THREE.PlaneGeometry(1, 1);
+
+  // Base plane size tuned to match your old sprite labels
+  const baseHeight = 0.0001;
+  const baseWidth = baseHeight * aspect;
+  
+  const geometry = new THREE.PlaneGeometry(baseWidth, baseHeight);
   const mesh = new THREE.Mesh(geometry, material);
-
-  mesh.scale.set(aspect, 1, 1);
-
+  
   return mesh;
+
 }
 
 function init() {
