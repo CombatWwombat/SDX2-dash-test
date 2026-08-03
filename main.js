@@ -7,10 +7,9 @@ function makeLabel(text) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
-  // HIGH DPI SCALE
-  const dpi = 4; // 4× resolution = very sharp
-  const fontSize = 64 * dpi;
-  const padding = 40 * dpi;
+  // Bigger font for crisp edges
+  const fontSize = 96;
+  const padding = 50;
 
   ctx.font = `${fontSize}px Arial`;
   const textWidth = ctx.measureText(text).width;
@@ -23,9 +22,16 @@ function makeLabel(text) {
   ctx.textBaseline = "middle";
   ctx.fillText(text, padding / 2, canvas.height / 2);
 
+  // Create texture
   const texture = new THREE.CanvasTexture(canvas);
-  texture.minFilter = THREE.LinearFilter;
-  texture.magFilter = THREE.LinearFilter;
+
+  // CRITICAL: disable smoothing
+  texture.minFilter = THREE.NearestFilter;
+  texture.magFilter = THREE.NearestFilter;
+  texture.generateMipmaps = false;
+
+  // Boost contrast for sharper edges
+  texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
   const material = new THREE.SpriteMaterial({
     map: texture,
@@ -36,13 +42,11 @@ function makeLabel(text) {
 
   const sprite = new THREE.Sprite(material);
 
-  // SCALE DOWN to normal size
-  const scale = 1 / dpi;
-  sprite.scale.set(scale, scale, 1);
+  // Scale normally — no DPI hacks
+  sprite.scale.set(1, 1, 1);
 
   return sprite;
 }
-
 
 function init() {
 
