@@ -2,14 +2,13 @@ let scene, camera, renderer, controls;
 let marker = null;
 let labels = [];   // store all labels so we can rotate them
 
-//LABELS
+//LABELS (PLANE VERSION — SHARP)
 function makeLabel(text) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
-  // Bigger font for crisp edges
-  const fontSize = 96;
-  const padding = 50;
+  const fontSize = 128;
+  const padding = 40;
 
   ctx.font = `${fontSize}px Arial`;
   const textWidth = ctx.measureText(text).width;
@@ -22,30 +21,25 @@ function makeLabel(text) {
   ctx.textBaseline = "middle";
   ctx.fillText(text, padding / 2, canvas.height / 2);
 
-  // Create texture
   const texture = new THREE.CanvasTexture(canvas);
-
-  // CRITICAL: disable smoothing
-  texture.minFilter = THREE.NearestFilter;
-  texture.magFilter = THREE.NearestFilter;
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
   texture.generateMipmaps = false;
 
-  // Boost contrast for sharper edges
-  texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-
-  const material = new THREE.SpriteMaterial({
+  const material = new THREE.MeshBasicMaterial({
     map: texture,
     transparent: true,
     depthTest: false,
     depthWrite: false
   });
 
-  const sprite = new THREE.Sprite(material);
+  const aspect = canvas.width / canvas.height;
+  const geometry = new THREE.PlaneGeometry(1, 1);
+  const mesh = new THREE.Mesh(geometry, material);
 
-  // Scale normally — no DPI hacks
-  sprite.scale.set(1, 1, 1);
+  mesh.scale.set(aspect, 1, 1);
 
-  return sprite;
+  return mesh;
 }
 
 function init() {
@@ -238,11 +232,12 @@ function animate() {
     const worldPixelRatio = height / window.innerHeight;
     const worldSize = desiredSize * worldPixelRatio;
 
-    label.scale.set(worldSize, worldSize * 0.5, 1);
+    label.scale.set(worldSize * (label.scale.x / label.scale.y), worldSize, 1);
   });
 
   renderer.render(scene, camera);
 }
 
 window.onload = init;
+
 
