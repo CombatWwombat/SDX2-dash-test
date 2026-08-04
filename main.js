@@ -2,7 +2,7 @@ let scene, camera, renderer, controls;
 let marker = null;
 let labels = [];   // store all labels so we can rotate them
 
-//LABELS (PLANE VERSION — SHARP)
+//Labels
 function makeLabel(text) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -35,7 +35,6 @@ function makeLabel(text) {
 
   const aspect = canvas.width / canvas.height;
 
-  // Base plane size tuned to match your old sprite labels
   const baseHeight = 0.3;
   const baseWidth = baseHeight * aspect;
   
@@ -74,7 +73,7 @@ function init() {
   controls.target.set(0, 0, 0);
   controls.update();
 
-  // LIGHT (Sun)
+  // Light
   const sunLight = new THREE.PointLight(0xffffff, 5, 0);
   sunLight.position.set(0, 0, 0);
   scene.add(sunLight);
@@ -86,7 +85,7 @@ function init() {
 
       console.log("data JSON:", data);
 
-      // ---- ZONES ----
+      // Zones
       data.zones.forEach(z => {
         const geo = new THREE.SphereGeometry(z.radius, 32, 32);
         const mat = new THREE.MeshBasicMaterial({ 
@@ -100,7 +99,7 @@ function init() {
         mesh.position.set(z.x, z.y, z.z);
         scene.add(mesh);
 
-        // ---- LABEL ----
+        // Zone label
         const label = makeLabel(z.name);
         label.position.set(
           z.x,
@@ -111,7 +110,7 @@ function init() {
         labels.push(label);
       });
 
-      // ---- TORUS BELT ----
+      // Belt
       function makeTorus(major, minor) {
         const geom = new THREE.TorusGeometry(
           major,
@@ -140,7 +139,7 @@ function init() {
     })
     .catch(err => console.error("JSON load error:", err));
 
-  // SOL
+  // Sol
   fetch("data/sol.json")
     .then(r => r.json())
     .then(s => {
@@ -151,7 +150,7 @@ function init() {
       scene.add(sol);
     });
 
-  // EARTH
+  // Earth
   fetch("data/earth.json")
     .then(r => r.json())
     .then(e => {
@@ -162,7 +161,7 @@ function init() {
       scene.add(earth);
     });
 
-  // MARS
+  // Mars
   fetch("data/mars.json")
     .then(r => r.json())
     .then(m => {
@@ -200,7 +199,7 @@ function init() {
   animate();
 }
 
-// ---- GPS PARSER ----
+// Gps parser
 function parseGPS(text) {
   try {
     const parts = text.split(":");
@@ -214,7 +213,7 @@ function parseGPS(text) {
   }
 }
 
-// ---- ANIMATION LOOP ----
+// Animation loop
 function animate() {
   requestAnimationFrame(animate);
 
@@ -226,7 +225,7 @@ function animate() {
     // Always face the camera
     label.quaternion.copy(camQuat);
 
-    // ---- CONSTANT SCREEN SIZE ----
+    // Screen size
     const desiredSize = 100; // pixels on screen
 
     const dist = camera.position.distanceTo(label.position);
