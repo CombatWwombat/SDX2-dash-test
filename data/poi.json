@@ -1,5 +1,6 @@
 {
   "pois": [
-    { "name": "Andromeda Station",   "x": 2132710.31, "y": -562141.87,  "z": -2339358.87,"radius": 10000 }
+    { "name": "Andromeda Station",   "x": 2132710.31, "y": -562141.87,  "z": -2339358.87,"radius": 10000 },
+    { "name": "Tycho Station",   "x": 2132710.31, "y": -562141.87,  "z": -2339358.87,"radius": 10000 }
   ]
 }
