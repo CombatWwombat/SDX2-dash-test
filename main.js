@@ -183,6 +183,17 @@ function init() {
       scene.add(mars);
     });
 
+  // Mercury
+  fetch("data/mercury.json")
+    .then(r => r.json())
+    .then(m => {
+      const geo = new THREE.SphereGeometry(m.radius, 32, 32);
+      const mat = new THREE.MeshStandardMaterial({ color: m.color });
+      const mercury = new THREE.Mesh(geo, mat);
+      mercury.position.set(m.x, m.y, m.z);
+      scene.add(mercury);
+    });
+
   // GPS Plot Button
   document.getElementById("plotBtn").onclick = () => {
     const text = document.getElementById("gpsInput").value;
