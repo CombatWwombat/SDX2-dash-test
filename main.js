@@ -161,6 +161,17 @@ function init() {
       scene.add(earth);
     });
 
+    // Venus
+    fetch("data/venus.json")
+      .then(r => r.json())
+      .then(v => {
+        const geo = new THREE.SphereGeometry(v.radius, 32, 32);
+        const mat = new THREE.MeshStandardMaterial({ color: v.color });
+        const venus = new THREE.Mesh(geo, mat);
+        venus.position.set(v.x, v.y, v.z);
+        scene.add(venus);
+      });
+
   // Mars
   fetch("data/mars.json")
     .then(r => r.json())
